@@ -8,6 +8,14 @@ import "./Escrow.sol";
  * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
  */
 contract ConditionalEscrow is Escrow {
+
+    Team winningTeam;
+
+    enum Team{
+        SAN_FRANCISCO_49ERS,
+        KANSAS_CITY_CHIEFS
+    }
+
     /**
     * @dev Returns whether an address is allowed to withdraw their funds. To be
     * implemented by derived contracts.
