@@ -18,8 +18,8 @@ contract ConditionalEscrow is Escrow {
 
     mapping(uint => uint8) scores;
 
-    function reportTouchdown(Team scoringTeam) public onlyOwner {
-        scores[uint(scoringTeam)] += 6;
+    function reportScore(Team scoringTeam,uint8 score) public onlyOwner {
+        scores[uint(scoringTeam)] += score;
     }
 
     /**
