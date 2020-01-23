@@ -13,10 +13,12 @@ contract ConditionalEscrow is Escrow {
     * implemented by derived contracts.
     * @param payee The destination address of the funds.
     */
-    function withdrawalAllowed(address payee) public view returns (bool);
+    function myTeamWon() public view returns (bool) {
+        return _deposits[msg.sender] > 0 && team[msg.sender] == winningTeam;
+    }
 
-    function withdraw(address payable payee) public {
-        require(withdrawalAllowed(payee));
-        super.withdraw(payee);
+    function withdraw() public {
+        require(myTeamWon(),"Sorry, you didn't win :'(");
+        super.withdraw(msg.sender);
     }
 }
