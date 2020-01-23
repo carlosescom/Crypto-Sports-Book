@@ -1,13 +1,14 @@
 pragma solidity ^0.5.0;
 
 import "./Escrow.sol";
+import "./WhitelistAdminRole.sol";
 
 /**
  * @title ConditionalEscrow
  * @dev Base abstract escrow to only allow withdrawal if a condition is met.
  * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
  */
-contract ConditionalEscrow is Escrow {
+contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
     Team winningTeam;
 
