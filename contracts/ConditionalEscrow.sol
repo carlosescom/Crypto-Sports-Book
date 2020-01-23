@@ -15,6 +15,15 @@ contract ConditionalEscrow is Escrow {
         SAN_FRANCISCO_49ERS,
         KANSAS_CITY_CHIEFS
     }
+    
+    uint team1Score;
+    uint team2Score;
+
+    function reportTouchdown(Team scoringTeam) public onlyOwner {
+        scoringTeam == Team.SAN_FRANCISCO_49ERS 
+            ? team1Score += 7
+            : team2Score += 7;
+    }
 
     /**
     * @dev Returns whether an address is allowed to withdraw their funds. To be
