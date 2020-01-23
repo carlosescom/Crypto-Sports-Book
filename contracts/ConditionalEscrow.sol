@@ -15,14 +15,11 @@ contract ConditionalEscrow is Escrow {
         SAN_FRANCISCO_49ERS,
         KANSAS_CITY_CHIEFS
     }
-    
-    uint SanFraniscoScore;
-    uint KansasCityScore;
+
+    mapping(uint => uint8) scores;
 
     function reportTouchdown(Team scoringTeam) public onlyOwner {
-        scoringTeam == Team.SAN_FRANCISCO_49ERS 
-            ? SanFraniscoScore += 7
-            : KansasCityScore += 7;
+        scores[uint(scoringTeam)] += 6;
     }
 
     /**
