@@ -16,10 +16,10 @@ contract ConditionalEscrow is Escrow {
         KANSAS_CITY_CHIEFS
     }
 
-    mapping(uint => uint8) scores;
+    mapping(uint8 => uint8) scores;
 
     function reportScore(Team scoringTeam,uint8 score) public onlyOwner {
-        scores[uint(scoringTeam)] += score;
+        scores[uint8(scoringTeam)] += score;
     }
 
     /**
