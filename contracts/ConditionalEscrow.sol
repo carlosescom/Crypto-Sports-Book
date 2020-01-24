@@ -18,9 +18,14 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     mapping(uint8 => uint8) public scores;
+    mapping(uint8 => uint8) public team;
 
     function reportScore(Team scoringTeam, uint8 score) public onlyOwner {
         scores[uint8(scoringTeam)] += score;
+    }
+
+    function myBetWasPlaced() public view returns (bool) {
+        return _deposits[msg.sender] > 0;
     }
 
     /**
@@ -29,7 +34,8 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     * @param payee The destination address of the funds.
     */
     function myTeamWon() public view returns (bool) {
-        return _deposits[msg.sender] > 0 && team[msg.sender] == winningTeam;
+        require(myBetWasPlaced(),"You didn't place a bet.");
+        return team[msg.sender] == winningTeam;
     }
 
     function withdraw() public {
