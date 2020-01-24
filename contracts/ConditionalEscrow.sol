@@ -17,9 +17,9 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         KANSAS_CITY_CHIEFS
     }
 
-    mapping(uint8 => uint8) scores;
+    mapping(uint8 => uint8) public scores;
 
-    function reportScore(Team scoringTeam,uint8 score) public onlyOwner {
+    function reportScore(Team scoringTeam, uint8 score) public onlyOwner {
         scores[uint8(scoringTeam)] += score;
     }
 
