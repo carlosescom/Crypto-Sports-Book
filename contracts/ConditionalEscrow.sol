@@ -39,11 +39,6 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         return _deposits[msg.sender] > 0;
     }
 
-    /**
-    * @dev Returns whether an address is allowed to withdraw their funds. To be
-    * implemented by derived contracts.
-    * @param payee The destination address of the funds.
-    */
     function myTeamWon() public view returns (bool) {
         require(myBetWasPlaced(),"You didn't place a bet.");
         return myTeam[msg.sender] == winningTeam;
