@@ -1,6 +1,6 @@
 pragma solidity ^0.5.0;
 
-import "../../math/SafeMath.sol";
+import "./SafeMath.sol";
 import "./Secondary.sol";
 import "./ReentrancyGuard.sol";
 
