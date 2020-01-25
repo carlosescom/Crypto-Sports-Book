@@ -26,6 +26,12 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     function reportScore(Team scoringTeam, uint8 score) public onlyOwner {
         scores[uint8(scoringTeam)] += score;
     }
+    
+    function setWinningTeam() public onlyOwner {
+        scores[Team.SAN_FRANCISCO_49ERS] > scores[Team.KANSAS_CITY_CHIEFS]
+            ? winningTeam = Team.SAN_FRANCISCO_49ERS
+            : winningTeam = Team.KANSAS_CITY_CHIEFS;
+    }
 
     function myBetWasPlaced() public view returns (bool) {
         return _deposits[msg.sender] > 0;
