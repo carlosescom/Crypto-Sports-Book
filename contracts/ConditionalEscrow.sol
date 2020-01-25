@@ -10,6 +10,9 @@ import "./WhitelistAdminRole.sol";
  */
 contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
+    uint256 minFee = 10 finney;
+    uint256 minBet = 30 finney;
+
     Team winningTeam;
 
     enum Team{
@@ -41,5 +44,15 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     function withdraw() public {
         require(myTeamWon(),"Sorry, you didn't win :'(");
         super.withdraw(msg.sender);
+    }
+
+    function bet(Team chosenTeam) public payable returns (bool) {
+        require(msg.value > minBet,"Please send at least 0.03 ETH.");
+        myTeam[msg.sender] = chosenTeam;
+        uint256 fee = msg.value.div(20);
+        uint256 betAmount = minFee < fee
+            ? msg.value.sub(fee)
+            : msg.value.sub(minFee);
+        deposit(msg.sender,betAmount);
     }
 }

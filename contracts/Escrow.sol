@@ -31,8 +31,7 @@ contract Escrow is Secondary {
     * @dev Stores the sent amount as credit to be withdrawn.
     * @param payee The destination address of the funds.
     */
-    function deposit(address payee) public onlyPrimary payable {
-        uint256 amount = msg.value;
+    function deposit(address payee, uint256 amount) public onlyPrimary payable {
         _deposits[payee] = _deposits[payee].add(amount);
 
         emit Deposited(payee, amount);
