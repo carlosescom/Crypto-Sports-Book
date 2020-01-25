@@ -12,6 +12,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
     uint256 minFee = 10 finney;
     uint256 minBet = 30 finney;
+    bool gameEnded;
 
     Team winningTeam;
 
@@ -31,6 +32,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         scores[Team.SAN_FRANCISCO_49ERS] > scores[Team.KANSAS_CITY_CHIEFS]
             ? winningTeam = Team.SAN_FRANCISCO_49ERS
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
+        gameEnded = true;
     }
 
     function myBetWasPlaced() public view returns (bool) {
