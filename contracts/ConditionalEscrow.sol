@@ -14,7 +14,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     uint256 minBet = 30 finney;
     bool gameEnded;
 
-    Team winningTeam;
+    Team public winningTeam;
 
     enum Team{
         SAN_FRANCISCO_49ERS,
