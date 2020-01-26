@@ -21,15 +21,20 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         KANSAS_CITY_CHIEFS
     }
 
-    mapping(uint8 => uint8) public scores;
+    uint8 SAN_FRANCISCO_49ERS_score = 0;
+    uint8 KANSAS_CITY_CHIEFS_score = 0;
     mapping(address => Team) public myTeam;
 
-    function reportScore(Team scoringTeam, uint8 score) public onlyWhitelistAdmin {
-        scores[uint8(scoringTeam)] += score;
+    function reportScoreForSanFrancisco(uint8 score) public onlyWhitelistAdmin {
+        SAN_FRANCISCO_49ERS_score += score;
+    }
+
+    function reportScoreForKansasCity(uint8 score) public onlyWhitelistAdmin {
+        KANSAS_CITY_CHIEFS_score += score;
     }
     
     function setWinningTeam() public onlyWhitelistAdmin {
-        scores[uint8(Team.SAN_FRANCISCO_49ERS)] > scores[uint8(Team.KANSAS_CITY_CHIEFS)]
+        SAN_FRANCISCO_49ERS_score > KANSAS_CITY_CHIEFS_score
             ? winningTeam = Team.SAN_FRANCISCO_49ERS
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
         gameEnded = true;
