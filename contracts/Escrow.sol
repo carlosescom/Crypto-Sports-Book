@@ -16,7 +16,7 @@ import "./ReentrancyGuard.sol";
  * payment method should be its primary, and provide public methods redirecting
  * to the escrow's deposit and withdraw.
  */
-contract Escrow is Secondary {
+contract Escrow is Secondary, ReentrancyGuard {
     using SafeMath for uint256;
 
     event Deposited(address indexed payee, uint256 weiAmount);
