@@ -9,6 +9,7 @@ import "./WhitelistAdminRole.sol";
  * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
  */
 contract ConditionalEscrow is Escrow, WhitelistAdminRole {
+    using SafeMath for uint8;
 
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
