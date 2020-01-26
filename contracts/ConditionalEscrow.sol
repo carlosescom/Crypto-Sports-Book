@@ -40,11 +40,11 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }    
 
     function reportScoreForSanFrancisco(uint8 score) public onlyWhitelistAdmin {
-        SAN_FRANCISCO_49ERS_score += score;
+        SAN_FRANCISCO_49ERS_score.add(score);
     }
 
     function reportScoreForKansasCity(uint8 score) public onlyWhitelistAdmin {
-        KANSAS_CITY_CHIEFS_score += score;
+        KANSAS_CITY_CHIEFS_score.add(score);
     }
     
     function setWinningTeam() public onlyWhitelistAdmin {
