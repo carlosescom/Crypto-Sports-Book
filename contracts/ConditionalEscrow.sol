@@ -29,7 +29,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
     
     function setWinningTeam() public onlyWhitelistAdmin {
-        scores[Team.SAN_FRANCISCO_49ERS] > scores[Team.KANSAS_CITY_CHIEFS]
+        scores[uint8(Team.SAN_FRANCISCO_49ERS)] > scores[uint8(Team.KANSAS_CITY_CHIEFS)]
             ? winningTeam = Team.SAN_FRANCISCO_49ERS
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
         gameEnded = true;
