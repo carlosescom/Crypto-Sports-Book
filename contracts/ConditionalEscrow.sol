@@ -28,6 +28,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     Team public winningTeam;
 
     enum Team{
+        NONE,
         SAN_FRANCISCO_49ERS,
         KANSAS_CITY_CHIEFS
     }
@@ -58,12 +59,13 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     function myTeamWon() public view returns (bool) {
-        require(gameEnded,"The game hasn't ended yet!");
-        require(myBetWasPlaced(),"You didn't place a bet.");
-        return myTeam[msg.sender] == winningTeam;
+        Team team = myTeam[msg.sender];
+        return team != Team.NONE && team == winningTeam;
     }
 
     function claimPayout() public {
+        require(gameEnded,"The game hasn't ended yet!");
+        require(myBetWasPlaced(),"You didn't place a bet.");
         require(myTeamWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
         uint256 ratio = totalPool.mul(precision);
@@ -73,8 +75,10 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
     function bet(Team chosenTeam) public payable returns (bool) {
         require(!gameStarted,"Too late, the game has already started!");
+        require(chosenTeam != Team.NONE ,"Please enter 1 to bet for San Francisco or 2 to bet for Kansas City.");
         require(msg.value > minBet,"Please send at least 0.03 ETH.");
-        myTeam[msg.sender] = chosenTeam;
+        if (depositsOf(msg.sender) == 0)
+            myTeam[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
         uint256 betAmount = minFee < fee
             ? msg.value.sub(fee)
