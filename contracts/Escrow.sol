@@ -42,7 +42,7 @@ contract Escrow is Secondary {
     * @dev Withdraw accumulated balance for a payee.
     * @param payee The address whose funds will be withdrawn and transferred to.
     */
-    function withdraw(address payable payee) public onlyPrimary,nonReentrant {
+    function withdraw(address payable payee) public onlyPrimary nonReentrant {
         uint256 payment = _deposits[payee];
 
         _deposits[payee] = 0;
