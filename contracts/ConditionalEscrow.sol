@@ -12,7 +12,15 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
+    uint256 public precision = 1 ether;
     uint256 public profit;
+    uint256 public totalpool;
+    uint256 public SAN_FRANCISCO_49ERS_pool;
+    uint256 public KANSAS_CITY_CHIEFS_pool;
+    uint32 public SAN_FRANCISCO_49ERS_bettors;
+    uint32 public KANSAS_CITY_CHIEFS_bettors;
+    uint8 public SAN_FRANCISCO_49ERS_score;
+    uint8 public KANSAS_CITY_CHIEFS_score;
 
     bool public gameStarted;
     bool public gameEnded;
@@ -25,9 +33,6 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     mapping(address => Team) public myTeam;
-
-    uint8 public SAN_FRANCISCO_49ERS_score;
-    uint8 public KANSAS_CITY_CHIEFS_score;
 
     function scores() view public returns (uint8,uint8) {
         return (SAN_FRANCISCO_49ERS_score, KANSAS_CITY_CHIEFS_score);
@@ -61,7 +66,8 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     function claimPayout() public {
         require(myTeamWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
-        uint256 payout = bet.add(bet.mul(profit).div(100));
+        uint256 ratio = totalPool.mul(precision);
+        uint256 payout = bet.mul(ratio).div(precision);
         withdraw(msg.sender, payout);
     }
 
