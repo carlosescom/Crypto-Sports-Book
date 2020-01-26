@@ -36,7 +36,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     function myBetWasPlaced() public view returns (bool) {
-        return super._deposits[msg.sender] > 0;
+        return depositsOf(msg.sender) > 0;
     }
 
     function myTeamWon() public view returns (bool) {
