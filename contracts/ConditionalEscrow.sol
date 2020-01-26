@@ -10,9 +10,11 @@ import "./WhitelistAdminRole.sol";
  */
 contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
-    uint256 minFee = 10 finney;
-    uint256 minBet = 30 finney;
-    bool gameEnded;
+    uint256 public minFee = 10 finney;
+    uint256 public minBet = 30 finney;
+
+    bool public gameStarted;
+    bool public gameEnded;
 
     Team public winningTeam;
 
@@ -24,7 +26,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     mapping(address => Team) public myTeam;
 
     uint8 public SAN_FRANCISCO_49ERS_score;
-    uint8 public KANSAS_CITY_CHIEFS_score;
+    uint8 public KANSAS_CITY_CHIEFS_score;    
 
     function reportScoreForSanFrancisco(uint8 score) public onlyWhitelistAdmin {
         SAN_FRANCISCO_49ERS_score += score;
@@ -57,6 +59,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     function bet(Team chosenTeam) public payable returns (bool) {
+        require(!gameStarted,"Too late, the game has already started!");
         require(msg.value > minBet,"Please send at least 0.03 ETH.");
         myTeam[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
