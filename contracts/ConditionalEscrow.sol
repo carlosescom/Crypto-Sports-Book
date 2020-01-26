@@ -12,6 +12,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
 
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
+    uint256 public profit;
 
     bool public gameStarted;
     bool public gameEnded;
@@ -57,9 +58,11 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         return myTeam[msg.sender] == winningTeam;
     }
 
-    function withdraw() public {
+    function claimPayout() public {
         require(myTeamWon(),"Sorry, you didn't win :'(");
-        super.withdraw(msg.sender);
+        uint256 bet = depositsOf(msg.sender);
+        uint256 payout = bet.add(bet.mul(profit).div(100));
+        withdraw(msg.sender, payout);
     }
 
     function bet(Team chosenTeam) public payable returns (bool) {

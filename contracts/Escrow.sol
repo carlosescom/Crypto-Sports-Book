@@ -33,7 +33,6 @@ contract Escrow is ReentrancyGuard {
     */
     function deposit(address payee, uint256 amount) public payable {
         _deposits[payee] = _deposits[payee].add(amount);
-
         emit Deposited(payee, amount);
     }
 
@@ -41,13 +40,8 @@ contract Escrow is ReentrancyGuard {
     * @dev Withdraw accumulated balance for a payee.
     * @param payee The address whose funds will be withdrawn and transferred to.
     */
-    function withdraw(address payable payee) public nonReentrant {
-        uint256 payment = _deposits[payee];
-
-        _deposits[payee] = 0;
-
-        payee.transfer(payment);
-
-        emit Withdrawn(payee, payment);
+    function withdraw(address payable payee, uint256 amount) public nonReentrant {
+        payee.transfer(amount);
+        emit Withdrawn(payee, amount);
     }
 }
