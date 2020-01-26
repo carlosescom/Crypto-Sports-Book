@@ -84,9 +84,9 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
             ? msg.value.sub(fee)
             : msg.value.sub(minFee);
         chosenTeam == Team.SAN_FRANCISCO_49ERS
-            ? SAN_FRANCISCO_49ERS_pool.add(betAmount)
-            : KANSAS_CITY_CHIEFS_pool.add(betAmount);
-        totalPool.add(betAmount);        
+            ? SAN_FRANCISCO_49ERS_pool = SAN_FRANCISCO_49ERS_pool.add(betAmount)
+            : KANSAS_CITY_CHIEFS_pool = KANSAS_CITY_CHIEFS_pool.add(betAmount);
+        totalPool = totalPool.add(betAmount);        
         deposit(msg.sender,betAmount);
     }
 }
