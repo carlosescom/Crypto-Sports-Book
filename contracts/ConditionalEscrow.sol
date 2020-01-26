@@ -24,11 +24,11 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     mapping(uint8 => uint8) public scores;
     mapping(address => Team) public myTeam;
 
-    function reportScore(Team scoringTeam, uint8 score) public onlyOwner {
+    function reportScore(Team scoringTeam, uint8 score) public onlyWhitelistAdmin {
         scores[uint8(scoringTeam)] += score;
     }
     
-    function setWinningTeam() public onlyOwner {
+    function setWinningTeam() public onlyWhitelistAdmin {
         scores[Team.SAN_FRANCISCO_49ERS] > scores[Team.KANSAS_CITY_CHIEFS]
             ? winningTeam = Team.SAN_FRANCISCO_49ERS
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
