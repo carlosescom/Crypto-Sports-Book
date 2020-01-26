@@ -1,7 +1,6 @@
 pragma solidity ^0.5.0;
 
 import "./SafeMath.sol";
-import "./Secondary.sol";
 import "./ReentrancyGuard.sol";
 
  /**
@@ -16,7 +15,7 @@ import "./ReentrancyGuard.sol";
  * payment method should be its primary, and provide public methods redirecting
  * to the escrow's deposit and withdraw.
  */
-contract Escrow is Secondary, ReentrancyGuard {
+contract Escrow is ReentrancyGuard {
     using SafeMath for uint256;
 
     event Deposited(address indexed payee, uint256 weiAmount);
@@ -32,7 +31,7 @@ contract Escrow is Secondary, ReentrancyGuard {
     * @dev Stores the sent amount as credit to be withdrawn.
     * @param payee The destination address of the funds.
     */
-    function deposit(address payee, uint256 amount) public onlyPrimary payable {
+    function deposit(address payee, uint256 amount) public payable {
         _deposits[payee] = _deposits[payee].add(amount);
 
         emit Deposited(payee, amount);
@@ -42,7 +41,7 @@ contract Escrow is Secondary, ReentrancyGuard {
     * @dev Withdraw accumulated balance for a payee.
     * @param payee The address whose funds will be withdrawn and transferred to.
     */
-    function withdraw(address payable payee) public onlyPrimary nonReentrant {
+    function withdraw(address payable payee) public nonReentrant {
         uint256 payment = _deposits[payee];
 
         _deposits[payee] = 0;
