@@ -14,7 +14,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     uint256 public minBet = 30 finney;
     uint256 public precision = 1 ether;
     uint256 public profit;
-    uint256 public totalpool;
+    uint256 public totalPool;
     uint256 public SAN_FRANCISCO_49ERS_pool;
     uint256 public KANSAS_CITY_CHIEFS_pool;
     uint32 public SAN_FRANCISCO_49ERS_bettors;
@@ -86,6 +86,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
         chosenTeam == Team.SAN_FRANCISCO_49ERS
             ? SAN_FRANCISCO_49ERS_pool.add(betAmount)
             : KANSAS_CITY_CHIEFS_pool.add(betAmount);
+        totalPool.add(betAmount);        
         deposit(msg.sender,betAmount);
     }
 }
