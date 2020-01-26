@@ -40,6 +40,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     function myTeamWon() public view returns (bool) {
+        require(gameEnded,"The game hasn't ended yet!");
         require(myBetWasPlaced(),"You didn't place a bet.");
         return myTeam[msg.sender] == winningTeam;
     }
@@ -50,7 +51,6 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     }
 
     function bet(Team chosenTeam) public payable returns (bool) {
-        require(gameEnded,"The game hasn't ended yet!");
         require(msg.value > minBet,"Please send at least 0.03 ETH.");
         myTeam[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
