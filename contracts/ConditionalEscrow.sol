@@ -76,7 +76,7 @@ contract ConditionalEscrow is Escrow, WhitelistAdminRole {
     function bet(Team chosenTeam) public payable returns (bool) {
         require(!gameStarted,"Too late, the game has already started!");
         require(chosenTeam != Team.NONE,"Please enter 1 to bet for San Francisco or 2 to bet for Kansas City.");
-        require(msg.value > minBet,"Please send at least 0.03 ETH.");
+        require(msg.value >= minBet,"Please send at least 0.03 ETH.");
         if (depositsOf(msg.sender) == 0)
             myTeam[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
