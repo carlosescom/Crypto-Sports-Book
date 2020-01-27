@@ -4,11 +4,11 @@ import "./Escrow.sol";
 import "./WhitelistAdminRole.sol";
 
 /**
- * @title ConditionalEscrow
+ * @title SportsBook
  * @dev Base abstract escrow to only allow withdrawal if a condition is met.
  * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
  */
-contract ConditionalEscrow is Escrow, WhitelistAdminRole {
+contract SportsBook is Escrow, WhitelistAdminRole {
 
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
