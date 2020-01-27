@@ -47,7 +47,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         KANSAS_CITY_CHIEFS_score += score;
     }
     
-    function setWinningTeam() public onlyWhitelistAdmin {
+    function gameEnded() public onlyWhitelistAdmin {
         SAN_FRANCISCO_49ERS_score > KANSAS_CITY_CHIEFS_score
             ? winningTeam = Team.SAN_FRANCISCO_49ERS
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
