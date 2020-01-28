@@ -1,6 +1,7 @@
 const shouldFail = require('./helpers/shouldFail');
 const { ZERO_ADDRESS } = require('./helpers/constants');
 const { ether } = require('./helpers/ether');
+const { should } = require('./helpers/setup');
 
 const SportsBook = artifacts.require('SportsBook');
 
@@ -22,14 +23,14 @@ contract('SportsBook', function ([
 
   context('initially', function () {
     it('doesn\'t pre-initialize fields', async function () {
-      (await this.sportsBook.profit()).should.be.bignumber.equal(0);
-      (await this.sportsBook.totalPool()).should.be.bignumber.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_pool()).should.be.bignumber.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_bettors()).should.be.bignumber.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_score()).should.be.bignumber.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_pool()).should.be.bignumber.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_bettors()).should.be.bignumber.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_score()).should.be.bignumber.equal(0);
+      (await this.sportsBook.profit()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.totalPool()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_pool()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_bettors()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_score()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_pool()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_bettors()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_score()).should.be.a.bignumber.that.is.zero;
     });
 
     describe('allows people to place bets', function () {
