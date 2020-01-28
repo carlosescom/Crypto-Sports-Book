@@ -11,10 +11,10 @@ contract('Roles', function ([
   SF_Fan1, SF_Fan2, SF_Fan3, SF_Fan4,
   KC_Fan1, KC_Fan2, KC_Fan3, KC_Fan4, KC_Fan5
 ]) {
-  const minFee = ether(10, 'finney');
-  const minBet = ether(3 * minFee, 'finney');
-  const amount1 = ether(5794, 'shannon');
-  const amount2 = ether(3249534, 'lovelace');
+  const minFee = ether('10', 'finney');
+  const minBet = ether((3 * minFee).toString(10), 'finney');
+  const amount1 = ether('5794', 'shannon');
+  const amount2 = ether('3249534', 'lovelace');
 
   beforeEach(async function () {
     this.sportsBook = await ConditionalEscrow.new();
