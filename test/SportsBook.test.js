@@ -4,7 +4,7 @@ const { ether } = require('./helpers/ether');
 
 const ConditionalEscrow = artifacts.require('ConditionalEscrow');
 
-require('./../helpers/setup');
+require('./helpers/setup');
 
 contract('Roles', function ([
   whitelistAdmin,
