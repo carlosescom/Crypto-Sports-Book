@@ -22,14 +22,14 @@ contract('SportsBook', function ([
 
   context('initially', function () {
     it('doesn\'t pre-initialize fields', async function () {
-      (await this.sportsBook.profit()).should.equal(0);
-      (await this.sportsBook.totalPool()).should.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_pool()).should.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_bettors()).should.equal(0);
-      (await this.sportsBook.SAN_FRANCISCO_49ERS_score()).should.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_pool()).should.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_bettors()).should.equal(0);
-      (await this.sportsBook.KANSAS_CITY_CHIEFS_score()).should.equal(0);
+      (await this.sportsBook.profit()).should.be.bignumber.equal(0);
+      (await this.sportsBook.totalPool()).should.be.bignumber.equal(0);
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_pool()).should.be.bignumber.equal(0);
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_bettors()).should.be.bignumber.equal(0);
+      (await this.sportsBook.SAN_FRANCISCO_49ERS_score()).should.be.bignumber.equal(0);
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_pool()).should.be.bignumber.equal(0);
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_bettors()).should.be.bignumber.equal(0);
+      (await this.sportsBook.KANSAS_CITY_CHIEFS_score()).should.be.bignumber.equal(0);
     });
 
     describe('allows people to place bets', function () {
