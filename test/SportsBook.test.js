@@ -1,6 +1,6 @@
 const shouldFail = require('./helpers/shouldFail');
 const { ZERO_ADDRESS } = require('./helpers/constants');
-const { ether } = require('./ether');
+const { ether } = require('./helpers/ether');
 
 const ConditionalEscrow = artifacts.require('ConditionalEscrow');
 
