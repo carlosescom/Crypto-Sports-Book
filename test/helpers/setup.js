@@ -1,6 +1,7 @@
 const chai = require('chai');
 const BigNumber = require('bignumber.js');
-const should = chai.use(require('chai-bignumber')(BigNumber)).should();
+const BN = require('BN.js');
+const should = chai.use(require('chai-bn')(BN)).should();
 
 module.exports = {
   BigNumber,
