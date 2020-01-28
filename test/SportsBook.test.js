@@ -2,11 +2,11 @@ const shouldFail = require('./helpers/shouldFail');
 const { ZERO_ADDRESS } = require('./helpers/constants');
 const { ether } = require('./helpers/ether');
 
-const ConditionalEscrow = artifacts.require('ConditionalEscrow');
+const SportsBook = artifacts.require('SportsBook');
 
 require('./helpers/setup');
 
-contract('Roles', function ([
+contract('SportsBook', function ([
   whitelistAdmin,
   SF_Fan1, SF_Fan2, SF_Fan3, SF_Fan4,
   KC_Fan1, KC_Fan2, KC_Fan3, KC_Fan4, KC_Fan5
@@ -17,11 +17,11 @@ contract('Roles', function ([
   const amount2 = ether('3249534', 'lovelace');
 
   beforeEach(async function () {
-    this.sportsBook = await ConditionalEscrow.new();
+    this.sportsBook = await SportsBook.new();
   });
 
   it('reverts when querying roles for the null account', async function () {
-    await shouldFail.reverting(this.roles.has(ZERO_ADDRESS));
+    await shouldFail.reverting(this.sportsBook.has(ZERO_ADDRESS));
   });
 
   context('initially', function () {
