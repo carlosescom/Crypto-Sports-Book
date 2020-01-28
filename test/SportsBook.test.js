@@ -20,10 +20,6 @@ contract('SportsBook', function ([
     this.sportsBook = await SportsBook.new();
   });
 
-  it('reverts when querying roles for the null account', async function () {
-    await shouldFail.reverting(this.sportsBook.has(ZERO_ADDRESS));
-  });
-
   context('initially', function () {
     it('doesn\'t pre-initialize fields', async function () {
       (await this.sportsBook.profit()).should.equal(0);
