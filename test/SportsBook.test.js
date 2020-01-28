@@ -39,6 +39,7 @@ contract('Roles', function ([
     describe('allows people to place bets', function () {
       it('lets accounts bet for either team', async function () {
         await this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet })
+        await this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet })
       });
 
       it('reverts when trying to bet for NONE', async function () {
@@ -65,10 +66,6 @@ contract('Roles', function ([
         await shouldFail.reverting(this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet }));
         await shouldFail.reverting(this.sportsBook.bet(2).send({ from: KC_Fan1, value: minBet }));
       });
-
-      it('reverts when losing bettors try to claim payouts', async function () {
-        this.sportsBook.claimPayout().send({ from: SF_Fan1, value: minBet });
-      });
     });
   });
 
@@ -83,18 +80,47 @@ contract('Roles', function ([
       this.sportsBook.bet(2).send({ from: KC_Fan3, value: minBet });
       this.sportsBook.bet(2).send({ from: KC_Fan4, value: amount2 });
       this.sportsBook.bet(2).send({ from: KC_Fan5, value: amount2 });
+      await this.sportsBook.reportgameStarted(28).send({ from: whitelistAdmin });
       await this.sportsBook.reportScoreForSanFrancisco(28).send({ from: whitelistAdmin });
       await this.sportsBook.reportScoreForKansasCity(32).send({ from: whitelistAdmin });
-      await this.sportsBook.setWinningTeam().send({ from: whitelistAdmin });
+      await this.sportsBook.reportgameEnded().send({ from: whitelistAdmin });
     });
 
-    describe('removing roles', function () {
+    describe('doesn\'t accept placing any more bets', function () {
       it('reverts when trying to place a bet', async function () {
         await shouldFail.reverting(this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet }));
       });
+    });
+
+    describe('pays out to the correct addresses', function () {
+      it('winners get payouts', async function () {
+        this.sportsBook.claimPayout().send({ from: KC_Fan1, value: minBet });
+      });
 
       it('reverts when losing bettors try to claim payouts', async function () {
-        this.sportsBook.claimPayout().send({ from: SF_Fan1, value: minBet });
+        await shouldFail.reverting(this.sportsBook.claimPayout().send({ from: SF_Fan1 }));
+      });
+
+      it('reverts when non-bettors try to claim payouts', async function () {
+        await shouldFail.reverting(this.sportsBook.claimPayout().send({ from: whitelistAdmin }));
+      });
+    });
+
+    describe('all winners get payouts', function () {
+      it('winners get payouts', async function () {
+        this.sportsBook.claimPayout().send({ from: KC_Fan1 });
+        this.sportsBook.claimPayout().send({ from: KC_Fan2 });
+        this.sportsBook.claimPayout().send({ from: KC_Fan3 });
+        this.sportsBook.claimPayout().send({ from: KC_Fan4 });
+        this.sportsBook.claimPayout().send({ from: KC_Fan5 });
+      });
+
+      it('reverts when losing bettors try to claim payouts', async function () {
+        await shouldFail.reverting(this.sportsBook.claimPayout().send({ from: SF_Fan1 }));
+      });
+
+      it('reverts when non-bettors try to claim payouts', async function () {
+        await shouldFail.reverting(this.sportsBook.claimPayout().send({ from: whitelistAdmin }));
       });
     });
   });
