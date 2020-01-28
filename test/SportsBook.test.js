@@ -35,8 +35,8 @@ contract('SportsBook', function ([
 
     describe('allows people to place bets', function () {
       it('lets accounts bet for either team', async function () {
-        await this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet })
-        await this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet })
+        await this.sportsBook.bet(1, { from: SF_Fan1, value: minBet });
+        await this.sportsBook.bet(1, { from: SF_Fan1, value: minBet });
       });
 
       it('reverts when trying to bet for NONE', async function () {
