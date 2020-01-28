@@ -49,7 +49,26 @@ contract('Roles', function ([
 
   context('game started', function () {
     beforeEach(async function () {
+      this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet });
+      this.sportsBook.bet(1).send({ from: SF_Fan2, value: amount1 });
+      this.sportsBook.bet(1).send({ from: SF_Fan3, value: amount1 });
+      this.sportsBook.bet(1).send({ from: SF_Fan4, value: amount2 });
+      this.sportsBook.bet(2).send({ from: KC_Fan1, value: minBet });
+      this.sportsBook.bet(2).send({ from: KC_Fan2, value: minBet });
+      this.sportsBook.bet(2).send({ from: KC_Fan3, value: minBet });
+      this.sportsBook.bet(2).send({ from: KC_Fan4, value: amount2 });
+      await this.sportsBook.reportgameStarted(28).send({ from: whitelistAdmin });
+    });
 
+    describe('doesn\'t accept placing any more bets', function () {
+      it('reverts when trying to place a bet for either team', async function () {
+        await shouldFail.reverting(this.sportsBook.bet(1).send({ from: SF_Fan1, value: minBet }));
+        await shouldFail.reverting(this.sportsBook.bet(2).send({ from: KC_Fan1, value: minBet }));
+      });
+
+      it('reverts when losing bettors try to claim payouts', async function () {
+        this.sportsBook.claimPayout().send({ from: SF_Fan1, value: minBet });
+      });
     });
   });
 
