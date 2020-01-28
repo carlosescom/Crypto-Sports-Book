@@ -1,6 +1,5 @@
 const chai = require('chai');
-
-const BigNumber = web3.BigNumber;
+const BigNumber = require('bignumber.js');
 const should = chai.use(require('chai-bignumber')(BigNumber)).should();
 
 module.exports = {
