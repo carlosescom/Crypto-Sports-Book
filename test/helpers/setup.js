@@ -5,5 +5,6 @@ const should = chai.use(require('chai-bn')(BN)).should();
 
 module.exports = {
   BigNumber,
+  BN,
   should,
 };
