@@ -82,10 +82,10 @@ contract('SportsBook', function ([
       this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
       this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
       this.sportsBook.bet(2,{ from: KC_Fan5, value: amount2 });
-      await this.sportsBook.reportgameStarted(28,{ from: whitelistAdmin });
+      await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
       await this.sportsBook.reportScoreForSanFrancisco(28,{ from: whitelistAdmin });
       await this.sportsBook.reportScoreForKansasCity(32,{ from: whitelistAdmin });
-      await this.sportsBook.reportgameEnded({ from: whitelistAdmin });
+      await this.sportsBook.reportGameEnded({ from: whitelistAdmin });
     });
 
     describe('doesn\'t accept placing any more bets', function () {
