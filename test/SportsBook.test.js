@@ -40,7 +40,7 @@ contract('SportsBook', function ([
 
     describe('allows people to place bets', function () {
       it('reverts when trying to bet for NONE', async function () {
-        await shouldFail.reverting(this.sportsBook.bet(0, { from: _, value: minBet }))
+        await shouldFail(this.sportsBook.bet(0, { from: _, value: minBet }))
       });
 
       it('lets accounts bet for either team', async function () {
