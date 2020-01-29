@@ -17,10 +17,10 @@ contract('SportsBook', function ([
   const amount1 = ether('5794', 'shannon');
   const amount2 = ether('3249534', 'lovelace');
 
-  console.log(minFee.toNumber());
-  console.log(minBet.toNumber());
-  console.log(amount1.toNumber());
-  console.log(amount2.toNumber());
+  console.log(minFee);
+  console.log(minBet);
+  console.log(amount1);
+  console.log(amount2);
 
   beforeEach(async function () {
     this.sportsBook = await SportsBook.new();
