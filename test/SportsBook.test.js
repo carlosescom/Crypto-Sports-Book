@@ -85,7 +85,7 @@ contract('SportsBook', function ([
       await this.sportsBook.reportgameStarted(28,{ from: whitelistAdmin });
       await this.sportsBook.reportScoreForSanFrancisco(28,{ from: whitelistAdmin });
       await this.sportsBook.reportScoreForKansasCity(32,{ from: whitelistAdmin });
-      await this.sportsBook.reportgameEnded(,{ from: whitelistAdmin });
+      await this.sportsBook.reportgameEnded({ from: whitelistAdmin });
     });
 
     describe('doesn\'t accept placing any more bets', function () {
@@ -96,33 +96,33 @@ contract('SportsBook', function ([
 
     describe('pays out to the correct addresses', function () {
       it('winners get payouts', async function () {
-        this.sportsBook.claimPayout(,{ from: KC_Fan1, value: minBet });
+        this.sportsBook.claimPayout({ from: KC_Fan1, value: minBet });
       });
 
       it('reverts when losing bettors try to claim payouts', async function () {
-        await shouldFail.reverting(this.sportsBook.claimPayout(,{ from: SF_Fan1 }));
+        await shouldFail.reverting(this.sportsBook.claimPayout({ from: SF_Fan1 }));
       });
 
       it('reverts when non-bettors try to claim payouts', async function () {
-        await shouldFail.reverting(this.sportsBook.claimPayout(,{ from: whitelistAdmin }));
+        await shouldFail.reverting(this.sportsBook.claimPayout({ from: whitelistAdmin }));
       });
     });
 
     describe('all winners get payouts', function () {
       it('winners get payouts', async function () {
-        this.sportsBook.claimPayout(,{ from: KC_Fan1 });
-        this.sportsBook.claimPayout(,{ from: KC_Fan2 });
-        this.sportsBook.claimPayout(,{ from: KC_Fan3 });
-        this.sportsBook.claimPayout(,{ from: KC_Fan4 });
-        this.sportsBook.claimPayout(,{ from: KC_Fan5 });
+        this.sportsBook.claimPayout({ from: KC_Fan1 });
+        this.sportsBook.claimPayout({ from: KC_Fan2 });
+        this.sportsBook.claimPayout({ from: KC_Fan3 });
+        this.sportsBook.claimPayout({ from: KC_Fan4 });
+        this.sportsBook.claimPayout({ from: KC_Fan5 });
       });
 
       it('reverts when losing bettors try to claim payouts', async function () {
-        await shouldFail.reverting(this.sportsBook.claimPayout(,{ from: SF_Fan1 }));
+        await shouldFail.reverting(this.sportsBook.claimPayout({ from: SF_Fan1 }));
       });
 
       it('reverts when non-bettors try to claim payouts', async function () {
-        await shouldFail.reverting(this.sportsBook.claimPayout(,{ from: whitelistAdmin }));
+        await shouldFail.reverting(this.sportsBook.claimPayout({ from: whitelistAdmin }));
       });
     });
   });
