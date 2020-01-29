@@ -45,7 +45,7 @@ contract('SportsBook', function ([
       });
 
       it('reverts when trying to bet for NONE', async function () {
-        await this.sportsBook.bet(0,{ from: _, value: minBet })
+        await shouldFail.reverting(this.sportsBook.bet(0, { from: _, value: minBet }))
       });
     });
   });
