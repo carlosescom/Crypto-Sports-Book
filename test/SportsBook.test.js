@@ -52,14 +52,14 @@ contract('SportsBook', function ([
 
   context('game started', function () {
     beforeEach(async function () {
-      this.sportsBook.bet(1,{ from: SF_Fan1, value: minBet });
-      this.sportsBook.bet(1,{ from: SF_Fan2, value: amount1 });
-      this.sportsBook.bet(1,{ from: SF_Fan3, value: amount1 });
-      this.sportsBook.bet(1,{ from: SF_Fan4, value: amount2 });
-      this.sportsBook.bet(2,{ from: KC_Fan1, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan2, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
+      await this.sportsBook.bet(1,{ from: SF_Fan1, value: minBet });
+      await this.sportsBook.bet(1,{ from: SF_Fan2, value: amount1 });
+      await this.sportsBook.bet(1,{ from: SF_Fan3, value: amount1 });
+      await this.sportsBook.bet(1,{ from: SF_Fan4, value: amount2 });
+      await this.sportsBook.bet(2,{ from: KC_Fan1, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan2, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
       await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
     });
 
