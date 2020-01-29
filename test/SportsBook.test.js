@@ -60,7 +60,7 @@ contract('SportsBook', function ([
       this.sportsBook.bet(2,{ from: KC_Fan2, value: minBet });
       this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
       this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
-      await this.sportsBook.reportGameStarted(28,{ from: whitelistAdmin });
+      await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
     });
 
     describe('doesn\'t accept placing any more bets', function () {
