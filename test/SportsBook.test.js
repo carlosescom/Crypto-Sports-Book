@@ -14,8 +14,8 @@ contract('SportsBook', function ([
 ]) {
   const minFee = ether('10', 'finney');
   const minBet = minFee.mul(new BN('3',10));
-  const amount1 = ether('5794', 'shannon');
-  const amount2 = ether('3249534', 'lovelace');
+  const amount1 = minFee.mul(new BN('5', 10));
+  const amount2 = minFee.mul(new BN('7', 10));
 
   console.log(minFee);
   console.log(minBet);
