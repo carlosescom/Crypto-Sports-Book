@@ -96,7 +96,7 @@ contract('SportsBook', function ([
 
     describe('pays out to the correct addresses', function () {
       it('winners get payouts', async function () {
-        await this.sportsBook.claimPayout({ from: KC_Fan1, value: minBet });
+        await this.sportsBook.claimPayout({ from: KC_Fan1 });
       });
 
       it('reverts when losing bettors try to claim payouts', async function () {
