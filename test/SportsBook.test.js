@@ -73,15 +73,15 @@ contract('SportsBook', function ([
 
   context('game ended', function () {
     beforeEach(async function () {
-      this.sportsBook.bet(1,{ from: SF_Fan1, value: minBet });
-      this.sportsBook.bet(1,{ from: SF_Fan2, value: amount1 });
-      this.sportsBook.bet(1,{ from: SF_Fan3, value: amount1 });
-      this.sportsBook.bet(1,{ from: SF_Fan4, value: amount2 });
-      this.sportsBook.bet(2,{ from: KC_Fan1, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan2, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
-      this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
-      this.sportsBook.bet(2,{ from: KC_Fan5, value: amount2 });
+      await this.sportsBook.bet(1,{ from: SF_Fan1, value: minBet });
+      await this.sportsBook.bet(1,{ from: SF_Fan2, value: amount1 });
+      await this.sportsBook.bet(1,{ from: SF_Fan3, value: amount1 });
+      await this.sportsBook.bet(1,{ from: SF_Fan4, value: amount2 });
+      await this.sportsBook.bet(2,{ from: KC_Fan1, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan2, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan3, value: minBet });
+      await this.sportsBook.bet(2,{ from: KC_Fan4, value: amount2 });
+      await this.sportsBook.bet(2,{ from: KC_Fan5, value: amount2 });
       await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
       await this.sportsBook.reportScoreForSanFrancisco(28,{ from: whitelistAdmin });
       await this.sportsBook.reportScoreForKansasCity(32,{ from: whitelistAdmin });
@@ -96,7 +96,7 @@ contract('SportsBook', function ([
 
     describe('pays out to the correct addresses', function () {
       it('winners get payouts', async function () {
-        this.sportsBook.claimPayout({ from: KC_Fan1, value: minBet });
+        await this.sportsBook.claimPayout({ from: KC_Fan1, value: minBet });
       });
 
       it('reverts when losing bettors try to claim payouts', async function () {
@@ -110,11 +110,11 @@ contract('SportsBook', function ([
 
     describe('all winners get payouts', function () {
       it('winners get payouts', async function () {
-        this.sportsBook.claimPayout({ from: KC_Fan1 });
-        this.sportsBook.claimPayout({ from: KC_Fan2 });
-        this.sportsBook.claimPayout({ from: KC_Fan3 });
-        this.sportsBook.claimPayout({ from: KC_Fan4 });
-        this.sportsBook.claimPayout({ from: KC_Fan5 });
+        await this.sportsBook.claimPayout({ from: KC_Fan1 });
+        await this.sportsBook.claimPayout({ from: KC_Fan2 });
+        await this.sportsBook.claimPayout({ from: KC_Fan3 });
+        await this.sportsBook.claimPayout({ from: KC_Fan4 });
+        await this.sportsBook.claimPayout({ from: KC_Fan5 });
       });
 
       it('reverts when losing bettors try to claim payouts', async function () {
