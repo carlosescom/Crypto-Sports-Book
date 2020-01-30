@@ -50,7 +50,7 @@ contract('SportsBook', function ([
     });
   });
 
-  context('game starts', function () {
+  context('bettors make their bets and game starts', function () {
     beforeEach(async function () {
       await this.sportsBook.bet(1, { from: SF_Fan1, value: minBet });
       await this.sportsBook.bet(1, { from: SF_Fan2, value: amount1 });
@@ -62,6 +62,16 @@ contract('SportsBook', function ([
       await this.sportsBook.bet(2, { from: KC_Fan4, value: amount2 });
       await this.sportsBook.bet(2, { from: KC_Fan5, value: amount2 });
       await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
+    });
+
+    describe('acknowledges bettors\' team choice', function () {
+      it('calling myTeam(SF_Fan1) should return \'1\'', async function () {
+        (await this.sportsBook.myTeam(SF_Fan1)).should.be.a.bignumber.that.equals(new BN('1', 10));
+      });
+
+      it('calling myTeam(KC_Fan1) should return \'2\'', async function () {
+        (await this.sportsBook.myTeam(KC_Fan1)).should.be.a.bignumber.that.equals(new BN('2', 10));
+      });
     });
 
     describe('doesn\'t accept placing any more bets', function () {
@@ -87,14 +97,22 @@ contract('SportsBook', function ([
       describe('reflects correct score for both teams', function () {
         it('calling SAN_FRANCISCO_49ERS_score() should return 28', async function () {
           let SAN_FRANCISCO_49ERS_score = await this.sportsBook.SAN_FRANCISCO_49ERS_score();
-          console.log(SAN_FRANCISCO_49ERS_score);
           SAN_FRANCISCO_49ERS_score.should.be.a.bignumber.that.equals(new BN('28', 10));
         });
 
         it('calling KANSAS_CITY_CHIEFS_score() should return 32', async function () {
           let KANSAS_CITY_CHIEFS_score = await this.sportsBook.KANSAS_CITY_CHIEFS_score();
-          console.log(KANSAS_CITY_CHIEFS_score);
           KANSAS_CITY_CHIEFS_score.should.be.a.bignumber.that.equals(new BN('32', 10));
+        });
+      });
+
+      describe('acknowledges bettors\' wins and losses', function () {
+        it('calling myTeamWon({from:SF_Fan1}) should return \'false\'', async function () {
+          (await this.sportsBook.myTeamWon({ from: SF_Fan1 })).should.be.false;
+        });
+
+        it('calling myTeamWon({from:KC_Fan1}) should return \'true\'', async function () {
+          (await this.sportsBook.myTeamWon({ from: KC_Fan1 })).should.be.true;
         });
       });
 
