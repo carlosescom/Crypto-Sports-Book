@@ -2,6 +2,7 @@ const shouldFail = require('./helpers/shouldFail');
 const { ZERO_ADDRESS } = require('./helpers/constants');
 const { ether } = require('./helpers/ether');
 const { BN, should } = require('./helpers/setup');
+const { balanceDifference } = require('./helpers/balanceDifference');
 
 const SportsBook = artifacts.require('SportsBook');
 
@@ -118,20 +119,22 @@ contract('SportsBook', function ([
 
       describe('pays out to the correct addresses', function () {
         it('a winning bettor gets payed out', async function () {
-          await this.sportsBook.claimPayout({ from: KC_Fan1 });
+          (await balanceDifference(KC_Fan1, async () => {
+            await this.sportsBook.claimPayout({ from: KC_Fan1 });
+          })).should.be.bignumber.above(minBet);
         });
 
-        it('reverts when a losing bettor try to claim payouts', async function () {
+        it('reverts when a losing bettor tries to claim a payout', async function () {
           await shouldFail.reverting(this.sportsBook.claimPayout({ from: SF_Fan1 }));
         });
 
-        it('reverts when non-bettors try to claim payouts', async function () {
+        it('reverts when a non-bettor tries to claim a payout', async function () {
           await shouldFail.reverting(this.sportsBook.claimPayout({ from: whitelistAdmin }));
         });
       });
 
-      describe('all winners get payouts', function () {
-        it('winners get payouts', async function () {
+      describe('payouts are fairly distributed', function () {
+        it('all winners get payouts', async function () {
           await this.sportsBook.claimPayout({ from: KC_Fan2 });
           await this.sportsBook.claimPayout({ from: KC_Fan3 });
           await this.sportsBook.claimPayout({ from: KC_Fan4 });
