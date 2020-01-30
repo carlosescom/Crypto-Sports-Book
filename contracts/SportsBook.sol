@@ -82,6 +82,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         require(!gameStarted,"Too late, the game has already started!");
         require(chosenTeam != Team.NONE,"Please enter 1 to bet for San Francisco or 2 to bet for Kansas City.");
         require(msg.value >= minBet,"Please send at least 0.03 ETH.");
+        myTeam[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
         uint256 betAmount = minFee < fee
             ? msg.value.sub(fee)
