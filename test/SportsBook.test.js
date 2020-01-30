@@ -88,13 +88,13 @@ contract('SportsBook', function ([
         it('calling SAN_FRANCISCO_49ERS_score() should return 28', async function () {
           let SAN_FRANCISCO_49ERS_score = await this.sportsBook.SAN_FRANCISCO_49ERS_score();
           console.log(SAN_FRANCISCO_49ERS_score);
-          SAN_FRANCISCO_49ERS_score.should.be.a.bignumber.that.equals(28);
+          SAN_FRANCISCO_49ERS_score.should.be.a.bignumber.that.equals(new BN('28', 10));
         });
 
         it('calling KANSAS_CITY_CHIEFS_score() should return 32', async function () {
           let KANSAS_CITY_CHIEFS_score = await this.sportsBook.KANSAS_CITY_CHIEFS_score();
           console.log(KANSAS_CITY_CHIEFS_score);
-          KANSAS_CITY_CHIEFS_score.should.be.a.bignumber.that.equals(32);
+          KANSAS_CITY_CHIEFS_score.should.be.a.bignumber.that.equals(new BN('32', 10));
         });
       });
 
