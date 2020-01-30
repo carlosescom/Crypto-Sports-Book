@@ -40,8 +40,9 @@ contract Escrow is ReentrancyGuard {
     * @dev Withdraw accumulated balance for a payee.
     * @param payee The address whose funds will be withdrawn and transferred to.
     */
-    function withdraw(address payable payee, uint256 amount) public nonReentrant {
-        payee.transfer(amount);
-        emit Withdrawn(payee, amount);
+    function withdraw(address payable payee, uint256 amount) public nonReentrant returns (bool success) {
+        success = payee.send(amount);
+        if(success)
+            emit Withdrawn(payee, amount);
     }
 }
