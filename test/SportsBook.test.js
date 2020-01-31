@@ -155,7 +155,7 @@ contract('SportsBook', function ([
               console.log(txReceipt)
               expectEvent.inLogs(txReceipt.logs, 'Withdrawn', {
                 payee: KC_Fan1,
-                weiAmount: minBet,
+                // weiAmount: minBet,
               });
             });
           });
