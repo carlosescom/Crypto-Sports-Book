@@ -151,8 +151,7 @@ contract('SportsBook', function ([
               txReceipt = await this.sportsBook.claimPayout({ from: KC_Fan1 })
             });
 
-            it('calling claimPayout({from:KC_Fan2}) should emit an event called Withdrawn', async function () {           
-              console.log(txReceipt)
+            it('calling claimPayout({from:KC_Fan2}) should emit an event called Withdrawn', async function () {
               expectEvent.inLogs(txReceipt.logs, 'Withdrawn', {
                 payee: KC_Fan1,
                 // weiAmount: minBet,
