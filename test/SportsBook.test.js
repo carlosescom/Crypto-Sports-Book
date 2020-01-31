@@ -144,14 +144,12 @@ contract('SportsBook', function ([
           });
         });
 
-        describe('pays out to the correct addresses', function () {
-          context('Kansas City fan tries to claim his payout', function () {
-            let txReceipt;
-            let claimPayout = async () => {
+        context('pays out to the correct addresses', function () {
+          describe('Kansas City fan tries to claim his payout', function () {
+            let txReceipt
+            beforeEach(async function () {
               txReceipt = await this.sportsBook.claimPayout({ from: KC_Fan1 })
-            };
-
-            beforeEach(claimPayout);
+            });
 
             it('calling claimPayout({from:KC_Fan2}) should emit an event called Withdrawn', async function () {           
               console.log(txReceipt)
