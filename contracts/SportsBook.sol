@@ -74,9 +74,9 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         require(myTeamWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
         uint256 numerator = bet.mul(totalPool).mul(precision);
-        uint256 losersPool = SAN_FRANCISCO_49ERS_pool < KANSAS_CITY_CHIEFS_pool
+        uint256 winnersPool = SAN_FRANCISCO_49ERS_pool > KANSAS_CITY_CHIEFS_pool
             ? SAN_FRANCISCO_49ERS_pool : KANSAS_CITY_CHIEFS_pool;
-        uint256 denominator = losersPool.mul(precision);
+        uint256 denominator = winnersPool.mul(precision);
         uint256 payout = numerator.div(denominator);
         withdraw(msg.sender, payout);
     }
