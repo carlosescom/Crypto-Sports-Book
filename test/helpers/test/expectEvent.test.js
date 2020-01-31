@@ -1,10 +1,10 @@
 const expectEvent = require('../expectEvent');
 const shouldFail = require('../shouldFail');
 
-const EventEmitter = artifacts.require('EventEmitter');
-const IndirectEventEmitter = artifacts.require('IndirectEventEmitter');
+const Escrow = artifacts.require('Escrow');
+const SportsBook = artifacts.require('SportsBook');
 
-const { should, BigNumber } = require('../../helpers/setup');
+const { should, BigNumber } = require('../setup');
 
 describe('expectEvent', function () {
   beforeEach(async function () {
@@ -14,7 +14,7 @@ describe('expectEvent', function () {
       string: 'OpenZeppelin',
     };
 
-    this.emitter = await EventEmitter.new(
+    this.emitter = await Escrow.new(
       this.constructionValues.uint,
       this.constructionValues.boolean,
       this.constructionValues.string
@@ -281,7 +281,7 @@ describe('expectEvent', function () {
 
     describe('with events emitted by an indirectly called contract', function () {
       beforeEach(async function () {
-        this.secondEmitter = await IndirectEventEmitter.new();
+        this.secondEmitter = await SportsBook.new();
 
         this.value = 'OpenZeppelin';
         ({ logs: this.logs } = await this.emitter.emitStringAndEmitIndirectly(this.value, this.secondEmitter.address));
@@ -301,7 +301,7 @@ describe('expectEvent', function () {
     describe('when emitting from called contract and indirect calls', function () {
       context('string value', function () {
         beforeEach(async function () {
-          this.secondEmitter = await IndirectEventEmitter.new();
+          this.secondEmitter = await SportsBook.new();
 
           this.value = 'OpenZeppelin';
           const receipt = await this.emitter.emitStringAndEmitIndirectly(this.value, this.secondEmitter.address);
@@ -310,29 +310,29 @@ describe('expectEvent', function () {
 
         context('with directly called contract', function () {
           it('accepts emitted events with correct string', async function () {
-            await expectEvent.inTransaction(this.txHash, EventEmitter, 'String', { value: this.value });
+            await expectEvent.inTransaction(this.txHash, Escrow, 'String', { value: this.value });
           });
 
           it('throws if an unemitted event is requested', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, EventEmitter, 'UnemittedEvent',
+            await shouldFail(expectEvent.inTransaction(this.txHash, Escrow, 'UnemittedEvent',
               { value: this.value }
             ));
           });
 
           it('throws if an incorrect string is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, EventEmitter, 'String',
+            await shouldFail(expectEvent.inTransaction(this.txHash, Escrow, 'String',
               { value: 'ClosedZeppelin' }
             ));
           });
 
           it('throws if an event emitted from other contract is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, EventEmitter, 'IndirectString',
+            await shouldFail(expectEvent.inTransaction(this.txHash, Escrow, 'IndirectString',
               { value: this.value }
             ));
           });
 
           it('throws if an incorrect emitter is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, IndirectEventEmitter, 'String',
+            await shouldFail(expectEvent.inTransaction(this.txHash, SportsBook, 'String',
               { value: this.value }
             ));
           });
@@ -340,31 +340,31 @@ describe('expectEvent', function () {
 
         context('with indirectly called contract', function () {
           it('accepts events emitted from other contracts', async function () {
-            await expectEvent.inTransaction(this.txHash, IndirectEventEmitter, 'IndirectString',
+            await expectEvent.inTransaction(this.txHash, SportsBook, 'IndirectString',
               { value: this.value }
             );
           });
 
           it('throws if an unemitted event is requested', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, IndirectEventEmitter, 'UnemittedEvent',
+            await shouldFail(expectEvent.inTransaction(this.txHash, SportsBook, 'UnemittedEvent',
               { value: this.value }
             ));
           });
 
           it('throws if an incorrect string is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, IndirectEventEmitter, 'IndirectString',
+            await shouldFail(expectEvent.inTransaction(this.txHash, SportsBook, 'IndirectString',
               { value: 'ClosedZeppelin' }
             ));
           });
 
           it('throws if an event emitted from other contract is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, IndirectEventEmitter, 'String',
+            await shouldFail(expectEvent.inTransaction(this.txHash, SportsBook, 'String',
               { value: this.value }
             ));
           });
 
           it('throws if an incorrect emitter is passed', async function () {
-            await shouldFail(expectEvent.inTransaction(this.txHash, EventEmitter, 'IndirectString',
+            await shouldFail(expectEvent.inTransaction(this.txHash, Escrow, 'IndirectString',
               { value: this.value }
             ));
           });

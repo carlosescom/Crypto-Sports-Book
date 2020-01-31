@@ -1,13 +1,13 @@
 const { makeInterfaceId } = require('../makeInterfaceId');
 
-const OwnableInterfaceId = artifacts.require('OwnableInterfaceId');
+const SportsBook = artifacts.require('SportsBook');
 
 require('chai')
   .should();
 
 describe('makeInterfaceId', function () {
   it('calculates the EIP165 interface id from function signatures', async function () {
-    const calculator = await OwnableInterfaceId.new();
+    const calculator = await SportsBook.new();
     const ownableId = await calculator.getInterfaceId();
 
     makeInterfaceId([

@@ -4,7 +4,7 @@ const expectEvent = require('../expectEvent');
 const { ether } = require('../ether');
 const { ethGetBalance } = require('../web3');
 
-const Acknowledger = artifacts.require('Acknowledger');
+const SportsBook = artifacts.require('SportsBook');
 
 const BigNumber = web3.BigNumber;
 require('chai')
@@ -37,34 +37,34 @@ contract('send', function ([sender, receiver]) {
 
   describe('transaction', function () {
     beforeEach(async function () {
-      this.acknowledger = await Acknowledger.new();
+      this.SportsBook = await SportsBook.new();
     });
 
     it('calls a function from its signature ', async function () {
-      const { logs } = await send.transaction(this.acknowledger, 'foo', 'uint256', [3]);
+      const { logs } = await send.transaction(this.SportsBook, 'foo', 'uint256', [3]);
       expectEvent.inLogs(logs, 'AcknowledgeFoo', { a: 3 });
     });
 
     it('calls overloaded functions with less arguments', async function () {
-      const { logs } = await send.transaction(this.acknowledger, 'bar', 'uint256', [3]);
+      const { logs } = await send.transaction(this.SportsBook, 'bar', 'uint256', [3]);
       expectEvent.inLogs(logs, 'AcknowledgeBarSingle', { a: 3 });
     });
 
     it('calls overloaded functions with more arguments', async function () {
-      const { logs } = await send.transaction(this.acknowledger, 'bar', 'uint256,uint256', [3, 5]);
+      const { logs } = await send.transaction(this.SportsBook, 'bar', 'uint256,uint256', [3, 5]);
       expectEvent.inLogs(logs, 'AcknowledgeBarDouble', { a: 3, b: 5 });
     });
 
     it('throws if the number of arguments does not match', async function () {
-      await shouldFail(send.transaction(this.acknowledger, 'foo', 'uint256, uint256', [3, 5]));
+      await shouldFail(send.transaction(this.SportsBook, 'foo', 'uint256, uint256', [3, 5]));
     });
 
     it('throws if the method does not exist', async function () {
-      await shouldFail(send.transaction(this.acknowledger, 'baz', 'uint256', [3]));
+      await shouldFail(send.transaction(this.SportsBook, 'baz', 'uint256', [3]));
     });
 
     it('throws if there is a mismatch in the number of types and values', async function () {
-      await shouldFail(send.transaction(this.acknowledger, 'foo', 'uint256', [3, 3]));
+      await shouldFail(send.transaction(this.SportsBook, 'foo', 'uint256', [3, 3]));
     });
   });
 });

@@ -1,13 +1,13 @@
 const shouldFail = require('../helpers/shouldFail');
 const { ZERO_ADDRESS } = require('../helpers/constants');
 
-const RolesMock = artifacts.require('RolesMock');
+const SportsBook = artifacts.require('SportsBook');
 
 require('./../helpers/setup');
 
 contract('Roles', function ([_, authorized, otherAuthorized, anyone]) {
   beforeEach(async function () {
-    this.roles = await RolesMock.new();
+    this.roles = await SportsBook.new();
   });
 
   it('reverts when querying roles for the null account', async function () {

@@ -5,7 +5,7 @@ const should = require('chai')
   .use(require('chai-bignumber')(BigNumber))
   .should();
 
-const Failer = artifacts.require('Failer');
+const SportsBook = artifacts.require('SportsBook');
 
 async function assertFailure (promise) {
   try {
@@ -18,7 +18,7 @@ async function assertFailure (promise) {
 
 describe('shouldFail', function () {
   beforeEach(async function () {
-    this.failer = await Failer.new();
+    this.failer = await SportsBook.new();
   });
 
   describe('shouldFail', function () {
