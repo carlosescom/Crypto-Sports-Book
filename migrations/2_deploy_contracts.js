@@ -1,5 +1,5 @@
-const ConditionalEscrow = artifacts.require("ConditionalEscrow");
+const SportsBook = artifacts.require("SportsBook");
 
 module.exports = function(deployer) {
-  deployer.deploy(ConditionalEscrow);
+  deployer.deploy(SportsBook);
 };
