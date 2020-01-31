@@ -73,8 +73,9 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         require(myBetWasPlaced(),"You didn't place a bet.");
         require(myTeamWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
-        uint256 ratio = totalPool.mul(precision);
-        uint256 payout = bet.mul(ratio).div(precision);
+        uint256 numerator = bet.mul(totalPool).mul(precision);
+        uint256 denominator = losersPool.mul(precision);
+        uint256 payout = numerator.div(denominator);
         withdraw(msg.sender, payout);
     }
 
