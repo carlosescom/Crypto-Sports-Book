@@ -12,6 +12,18 @@ module.exports = {
       host: "127.0.0.1",
       port: 8545,
       network_id: "5777"
-    }
+    },
+    ropsten: {
+      provider: function () {
+        return new HDWalletProvider(
+          process.env.MNEMONIC,
+          "https://ropsten.infura.io/v3/" + process.env.INFURA_APIKEY,
+          0,
+          10,
+          process.env.DERIVATION_PATH
+        )
+      },
+      network_id: 3
+    },
   }
 };
