@@ -88,12 +88,9 @@ export default ({ accounts }) => (
 
     <div className="section">
       <h2>Submit your bets!</h2>
-      <p>
-        Here we have a form with custom, friendly labels. Also note the token
-        symbol will not display a loading indicator. We've suppressed it with
-        the <code>hideIndicator</code> prop because we know this variable is
-        constant.
-      </p>
+      <p>Enter <strong>1</strong> to bet for San Francisco</p>
+      <p>Enter <strong>2</strong> to bet for Kansas City</p>
+      <p>You will bet <strong>30 finney</strong> everytime you submit a bet.</p>
       <ContractForm
         contract="SportsBook"
         method="bet"
