@@ -133,7 +133,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
             : KANSAS_CITY_CHIEFS_pool = KANSAS_CITY_CHIEFS_pool.add(betAmount);
         totalPool = totalPool.add(betAmount);
         deposit(msg.sender,betAmount);
-        profit_for_SAN_FRANCISCO_49ERS_bettors = totalPool.div(SAN_FRANCISCO_49ERS_pool);
-        profit_for_KANSAS_CITY_CHIEFS_bettors = totalPool.div(KANSAS_CITY_CHIEFS_pool);
+        profit_for_SAN_FRANCISCO_49ERS_bettors = totalPool.mul(precision).div(SAN_FRANCISCO_49ERS_pool);
+        profit_for_KANSAS_CITY_CHIEFS_bettors = totalPool.mul(precision).div(KANSAS_CITY_CHIEFS_pool);
     }
 }
