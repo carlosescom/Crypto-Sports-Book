@@ -89,6 +89,11 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
             : winningTeam = Team.KANSAS_CITY_CHIEFS;
         gameEnded = true;
     }
+    
+    function updateProfits() public onlyWhitelistAdmin {
+        profit_for_SAN_FRANCISCO_49ERS_bettors = totalPool.mul(precision).div(SAN_FRANCISCO_49ERS_pool);
+        profit_for_KANSAS_CITY_CHIEFS_bettors = totalPool.mul(precision).div(KANSAS_CITY_CHIEFS_pool);
+    }
 
     function howMuchHaveIBet() public view returns (uint256) {
         return depositsOf(msg.sender);
@@ -130,7 +135,5 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
             : KANSAS_CITY_CHIEFS_pool = KANSAS_CITY_CHIEFS_pool.add(betAmount);
         totalPool = totalPool.add(betAmount);
         deposit(msg.sender,betAmount);
-        profit_for_SAN_FRANCISCO_49ERS_bettors = totalPool.mul(precision).div(SAN_FRANCISCO_49ERS_pool);
-        profit_for_KANSAS_CITY_CHIEFS_bettors = totalPool.mul(precision).div(KANSAS_CITY_CHIEFS_pool);
     }
 }
