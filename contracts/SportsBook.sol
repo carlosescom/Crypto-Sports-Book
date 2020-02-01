@@ -4,7 +4,12 @@ import "./WhitelistAdminRole.sol";
 import "./SafeMath.sol";
 import "./ReentrancyGuard.sol";
 
-contract Escrow is ReentrancyGuard {
+/**
+ * @title SportsBook
+ * @dev Base abstract escrow to only allow withdrawal if a condition is met.
+ * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
+ */
+contract SportsBook is Escrow, WhitelistAdminRole, ReentrancyGuard {
     using SafeMath for uint256;
 
     event Deposited(address indexed payee, uint256 weiAmount);
@@ -29,19 +34,11 @@ contract Escrow is ReentrancyGuard {
     * @dev Withdraw accumulated balance for a payee.
     * @param payee The address whose funds will be withdrawn and transferred to.
     */
-    function withdraw(address payable payee, uint256 amount) public nonReentrant returns (bool success) {
+    function withdraw(address payable payee, uint256 amount) internal nonReentrant returns (bool success) {
         success = payee.send(amount);
         if(success)
             emit Withdrawn(payee, amount);
     }
-}
-
-/**
- * @title SportsBook
- * @dev Base abstract escrow to only allow withdrawal if a condition is met.
- * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
- */
-contract SportsBook is Escrow, WhitelistAdminRole {
 
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
