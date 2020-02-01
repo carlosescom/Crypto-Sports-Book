@@ -9,12 +9,14 @@ module.exports = {
   contracts_build_directory: path.join(__dirname, "app/src/contracts"),
   networks: {
     develop: {
-      port: 9545
+      port: 9545,
+      gas: 3000000
     },
     ganache: {
       host: "127.0.0.1",
       port: 8545,
-      network_id: "5777"
+      network_id: "5777",
+      gas: 3000000
     },
     ropsten: {
       provider: function () {
