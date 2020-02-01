@@ -67,12 +67,12 @@ contract('SportsBook', function ([
     });
 
     describe('acknowledges bettors\' team choice', function () {
-      it('calling myTeam(SF_Fan1) should return \'1\'', async function () {
-        (await this.sportsBook.myTeam(SF_Fan1)).should.be.a.bignumber.that.equals(new BN('1', 10));
+      it('calling teamOf(SF_Fan1) should return \'1\'', async function () {
+        (await this.sportsBook.teamOf(SF_Fan1)).should.be.a.bignumber.that.equals(new BN('1', 10));
       });
 
-      it('calling myTeam(KC_Fan1) should return \'2\'', async function () {
-        (await this.sportsBook.myTeam(KC_Fan1)).should.be.a.bignumber.that.equals(new BN('2', 10));
+      it('calling teamOf(KC_Fan1) should return \'2\'', async function () {
+        (await this.sportsBook.teamOf(KC_Fan1)).should.be.a.bignumber.that.equals(new BN('2', 10));
       });
     });
 
@@ -136,12 +136,12 @@ contract('SportsBook', function ([
         });
 
         describe('acknowledges bettors\' wins and losses', function () {
-          it('calling myTeamWon({from:SF_Fan1}) should return \'false\'', async function () {
-            (await this.sportsBook.myTeamWon({ from: SF_Fan1 })).should.be.false;
+          it('calling teamOfWon({from:SF_Fan1}) should return \'false\'', async function () {
+            (await this.sportsBook.teamOfWon({ from: SF_Fan1 })).should.be.false;
           });
 
-          it('calling myTeamWon({from:KC_Fan1}) should return \'true\'', async function () {
-            (await this.sportsBook.myTeamWon({ from: KC_Fan1 })).should.be.true;
+          it('calling teamOfWon({from:KC_Fan1}) should return \'true\'', async function () {
+            (await this.sportsBook.teamOfWon({ from: KC_Fan1 })).should.be.true;
           });
         });
 
