@@ -66,7 +66,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         KANSAS_CITY_CHIEFS
     }
 
-    mapping(address => Team) public myTeam;
+    mapping(address => Team) public teamOf;
 
     function scores() view public returns (uint8,uint8) {
         return (SAN_FRANCISCO_49ERS_score, KANSAS_CITY_CHIEFS_score);
@@ -100,15 +100,15 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         return howMuchHaveIBet() > 0;
     }
 
-    function myTeamWon() public view returns (bool) {
-        Team team = myTeam[msg.sender];
+    function teamOfWon() public view returns (bool) {
+        Team team = teamOf[msg.sender];
         return team != Team.NONE && team == winningTeam;
     }
 
     function claimPayout() public returns (bool) {
         require(gameEnded,"The game hasn't ended yet!");
         require(myBetWasPlaced(),"You didn't place a bet.");
-        require(myTeamWon(),"Sorry, you didn't win :'(");
+        require(teamOfWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
         uint256 numerator = bet.mul(totalPool).mul(precision);
         uint256 winnersPool = SAN_FRANCISCO_49ERS_pool > KANSAS_CITY_CHIEFS_pool
@@ -122,7 +122,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         require(!gameStarted,"Too late, the game has already started!");
         require(chosenTeam != Team.NONE,"Please enter 1 to bet for San Francisco or 2 to bet for Kansas City.");
         require(msg.value >= minBet,"Please send at least 0.03 ETH.");
-        myTeam[msg.sender] = chosenTeam;
+        teamOf[msg.sender] = chosenTeam;
         uint256 fee = msg.value.div(20);
         uint256 betAmount = minFee < fee
             ? msg.value.sub(fee)
