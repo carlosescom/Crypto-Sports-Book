@@ -92,8 +92,12 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         gameEnded = true;
     }
 
+    function howMuchHaveIBet() public view returns (bool) {
+        return depositsOf(msg.sender);
+    }
+
     function myBetWasPlaced() public view returns (bool) {
-        return depositsOf(msg.sender) > 0;
+        return howMuchHaveIBet() > 0;
     }
 
     function myTeamWon() public view returns (bool) {
