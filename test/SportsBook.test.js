@@ -112,8 +112,8 @@ contract('SportsBook', function ([
 
       context('game ends with Kansas City beating San Francisco 32-28', function () {
         beforeEach(async function () {
-          await this.sportsBook.reportScoreForSanFrancisco(28, { from: whitelistAdmin });
-          await this.sportsBook.reportScoreForKansasCity(32, { from: whitelistAdmin });
+          await this.sportsBook.setScoreForSanFrancisco(28, { from: whitelistAdmin });
+          await this.sportsBook.setScoreForKansasCity(32, { from: whitelistAdmin });
           await this.sportsBook.reportGameEnded({ from: whitelistAdmin });
         });
 
