@@ -72,12 +72,12 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         return (SAN_FRANCISCO_49ERS_score, KANSAS_CITY_CHIEFS_score);
     }    
 
-    function reportScoreForSanFrancisco(uint8 score) public onlyWhitelistAdmin {
-        SAN_FRANCISCO_49ERS_score += score;
+    function setScoreForSanFrancisco(uint8 score) public onlyWhitelistAdmin {
+        SAN_FRANCISCO_49ERS_score = score;
     }
 
-    function reportScoreForKansasCity(uint8 score) public onlyWhitelistAdmin {
-        KANSAS_CITY_CHIEFS_score += score;
+    function setScoreForKansasCity(uint8 score) public onlyWhitelistAdmin {
+        KANSAS_CITY_CHIEFS_score = score;
     }
 
     function reportGameStarted() public onlyWhitelistAdmin {
@@ -101,7 +101,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
         return team != Team.NONE && team == winningTeam;
     }
 
-    function claimPayout() public {
+    function claimPayout() public returns (bool) {
         require(gameEnded,"The game hasn't ended yet!");
         require(myBetWasPlaced(),"You didn't place a bet.");
         require(myTeamWon(),"Sorry, you didn't win :'(");
@@ -111,7 +111,7 @@ contract SportsBook is Escrow, WhitelistAdminRole {
             ? SAN_FRANCISCO_49ERS_pool : KANSAS_CITY_CHIEFS_pool;
         uint256 denominator = winnersPool.mul(precision);
         uint256 payout = numerator.div(denominator);
-        withdraw(msg.sender, payout);
+        return withdraw(msg.sender, payout);
     }
 
     function bet(Team chosenTeam) public payable returns (bool) {
