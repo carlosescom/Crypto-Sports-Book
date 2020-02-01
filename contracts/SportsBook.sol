@@ -9,7 +9,7 @@ import "./ReentrancyGuard.sol";
  * @dev Base abstract escrow to only allow withdrawal if a condition is met.
  * @dev Intended usage: See Escrow.sol. Same usage guidelines apply here.
  */
-contract SportsBook is Escrow, WhitelistAdminRole, ReentrancyGuard {
+contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
     using SafeMath for uint256;
 
     event Deposited(address indexed payee, uint256 weiAmount);
