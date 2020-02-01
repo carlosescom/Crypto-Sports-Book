@@ -118,7 +118,8 @@ contract('SportsBook', function ([
 
         describe('reports the correct scores', function () {
           it('calling scores() should return \'{10,13} BN\'', async function () {
-            let { SF_score, KC_score } = await this.sportsBook.scores();
+            let scores = await this.sportsBook.scores();
+            let [SF_score, KC_score] = [scores['0'], scores['1']];
             SF_score.should.be.a.bignumber.that.equals(new BN('10', 10));
             KC_score.should.be.a.bignumber.that.equals(new BN('13', 10));
           });
