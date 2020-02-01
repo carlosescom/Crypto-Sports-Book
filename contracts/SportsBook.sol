@@ -1,7 +1,40 @@
 pragma solidity ^0.5.0;
 
-import "./Escrow.sol";
 import "./WhitelistAdminRole.sol";
+import "./SafeMath.sol";
+import "./ReentrancyGuard.sol";
+
+contract Escrow is ReentrancyGuard {
+    using SafeMath for uint256;
+
+    event Deposited(address indexed payee, uint256 weiAmount);
+    event Withdrawn(address indexed payee, uint256 weiAmount);
+
+    mapping(address => uint256) private _deposits;
+
+    function depositsOf(address payee) public view returns (uint256) {
+        return _deposits[payee];
+    }
+
+    /**
+    * @dev Stores the sent amount as credit to be withdrawn.
+    * @param payee The destination address of the funds.
+    */
+    function deposit(address payee, uint256 amount) public payable {
+        _deposits[payee] = _deposits[payee].add(amount);
+        emit Deposited(payee, amount);
+    }
+
+    /**
+    * @dev Withdraw accumulated balance for a payee.
+    * @param payee The address whose funds will be withdrawn and transferred to.
+    */
+    function withdraw(address payable payee, uint256 amount) public nonReentrant returns (bool success) {
+        success = payee.send(amount);
+        if(success)
+            emit Withdrawn(payee, amount);
+    }
+}
 
 /**
  * @title SportsBook
