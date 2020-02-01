@@ -59,13 +59,24 @@ export default ({ accounts }) => (
               <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_pool" /> wei
           </td>
           </tr>
+          <tr style={{
+            fontSize: '0.5em',
+          }}>
+            <td>
+              <strong>SF pool: </strong>
+              <ContractData contract="SportsBook" method="SAN_FRANCISCO_49ERS_bettors" /> wei
+          </td>
+            <td>
+              <strong>KC pool: </strong>
+              <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_bettors" /> wei
+          </td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <div className="section">
       <h2>Active Account</h2>
-      <AccountData accountIndex={0} units="ether" precision={6} />
     </div>
 
     <div className="section">
@@ -80,14 +91,16 @@ export default ({ accounts }) => (
         <ContractData contract="SportsBook" method="profit" /> wei</p>
       <p><strong>totalPool: </strong>
         <ContractData contract="SportsBook" method="totalPool" /> wei</p>
-      <p><strong>SF bettors: </strong>
-        <ContractData contract="SportsBook" method="SAN_FRANCISCO_49ERS_bettors" /> bettors</p>
-      <p><strong>KC bettors: </strong>
-        <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_bettors" /> bettors</p>
+      <p><strong>Has the game started?: </strong>
+        <ContractData contract="SportsBook" method="gameStarted" /></p>
+      <p><strong>Has the game ended?: </strong>
+        <ContractData contract="SportsBook" method="gameEnded" /></p>
+      <p><strong>Did your team win?: </strong>
+        <ContractData contract="SportsBook" method="myTeamWon" /></p>
     </div>
 
     <div className="section">
-      <h2>Submit your bets!</h2>
+      <h1>Submit your bets!</h1>
       <p>Enter <strong>1</strong> to bet for San Francisco</p>
       <p>Enter <strong>2</strong> to bet for Kansas City</p>
       <p>You will bet <strong>30 finney</strong> everytime you submit a bet.</p>
@@ -96,6 +109,60 @@ export default ({ accounts }) => (
         method="bet"
         labels={["Team"]}
         sendArgs={{value:30000000000000000}}
+      />
+      <p>
+        <strong>Was your bet acknowledged?: </strong>
+        <ContractData contract="SportsBook" method="myBetWasPlaced" />
+      </p>
+      <p>
+        You're betting from: <AccountData accountIndex={0} units="ether" precision={6} />
+      </p>
+    </div>
+
+    <div className="section">
+      <h1>Report the game!</h1>
+      <p>
+        <strong>
+          You need to be a whitelisted admin to help the dapp know the score of the game. Users should be able to apply in a near future.
+        </strong>
+      </p>
+      <p>
+        Admins should be trustworthy people who will report the scores accurately. The correct functionality of this betting system depends on correct scores being reported.
+      </p>
+      <p>
+        <strong>
+        This function adds the score you input to the already counted score, so that you may find yourself irreversibly adding too much and end up in a wrong score, which will hurt the reputation of the dapp.
+            
+        Only report the score after NFL officials say the final word in a challenged play.
+        </strong>
+      </p>
+      <br />
+      <p><strong>Game Started</strong></p>
+      <ContractForm
+        contract="SportsBook"
+        method="reportGameStarted"
+        labels={[""]}
+      />
+      <br/>
+      <p><strong>Score for San Francisco</strong></p>
+      <ContractForm
+        contract="SportsBook"
+        method="reportScoreForSanFrancisco"
+        labels={["Score for SF"]}
+        />
+      <br/>
+      <p><strong>Score for Kansas City</strong></p>
+      <ContractForm
+        contract="SportsBook"
+        method="reportScoreForKansasCity"
+        labels={["Score for KC"]}
+      />
+      <br />
+      <p><strong>Game Ended</strong></p>
+      <ContractForm
+        contract="SportsBook"
+        method="reportGameEnded"
+        labels={[""]}
       />
     </div>
   </div>
