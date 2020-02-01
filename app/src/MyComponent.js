@@ -142,9 +142,7 @@ export default ({ accounts }) => (
         Admins should be trustworthy people who will report the scores accurately. The correct functionality of this betting system depends on correct scores being reported.
       </p>
       <p>
-        <strong>
-        This function adds the score you input to the already counted score, so that you may find yourself irreversibly adding too much and end up in a wrong score, which will hurt the reputation of the dapp.
-            
+        <strong>            
         Only report the score after NFL officials say the final word in a challenged play.
         </strong>
       </p>
