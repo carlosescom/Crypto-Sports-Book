@@ -25,7 +25,7 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
     * @dev Stores the sent amount as credit to be withdrawn.
     * @param payee The destination address of the funds.
     */
-    function deposit(address payee, uint256 amount) public payable {
+    function deposit(address payee, uint256 amount) internal {
         _deposits[payee] = _deposits[payee].add(amount);
         emit Deposited(payee, amount);
     }
