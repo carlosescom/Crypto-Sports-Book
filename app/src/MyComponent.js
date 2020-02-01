@@ -76,11 +76,7 @@ export default ({ accounts }) => (
     </div>
 
     <div className="section">
-      <h2>Active Account</h2>
-    </div>
-
-    <div className="section">
-      <h2>SportsBook Fields</h2>
+      <h1>Game Info</h1>
       <p><strong>minFee: </strong>
         <ContractData contract="SportsBook" method="minFee" /> wei</p>
       <p><strong>minBet: </strong>
