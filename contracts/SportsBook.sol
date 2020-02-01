@@ -103,7 +103,7 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
         return howMuchHaveIBet() > 0;
     }
 
-    function teamOfWon() public view returns (bool) {
+    function myTeamWon() public view returns (bool) {
         Team team = teamOf[msg.sender];
         return team != Team.NONE && team == winningTeam;
     }
@@ -111,7 +111,7 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
     function claimPayout() public returns (bool) {
         require(gameEnded,"The game hasn't ended yet!");
         require(myBetWasPlaced(),"You didn't place a bet.");
-        require(teamOfWon(),"Sorry, you didn't win :'(");
+        require(myTeamWon(),"Sorry, you didn't win :'(");
         uint256 bet = depositsOf(msg.sender);
         uint256 numerator = bet.mul(totalPool).mul(precision);
         uint256 winnersPool = SAN_FRANCISCO_49ERS_pool > KANSAS_CITY_CHIEFS_pool

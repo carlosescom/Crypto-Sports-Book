@@ -136,12 +136,12 @@ contract('SportsBook', function ([
         });
 
         describe('acknowledges bettors\' wins and losses', function () {
-          it('calling teamOfWon({from:SF_Fan1}) should return \'false\'', async function () {
-            (await this.sportsBook.teamOfWon({ from: SF_Fan1 })).should.be.false;
+          it('calling myTeamWon({from:SF_Fan1}) should return \'false\'', async function () {
+            (await this.sportsBook.myTeamWon({ from: SF_Fan1 })).should.be.false;
           });
 
-          it('calling teamOfWon({from:KC_Fan1}) should return \'true\'', async function () {
-            (await this.sportsBook.teamOfWon({ from: KC_Fan1 })).should.be.true;
+          it('calling myTeamWon({from:KC_Fan1}) should return \'true\'', async function () {
+            (await this.sportsBook.myTeamWon({ from: KC_Fan1 })).should.be.true;
           });
         });
 
