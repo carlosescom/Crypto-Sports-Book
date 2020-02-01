@@ -117,6 +117,16 @@ contract('SportsBook', function ([
         });
 
         describe('reports the correct scores', function () {
+          it('calling SAN_FRANCISCO_49ERS_score() should return 10', async function () {
+            let SAN_FRANCISCO_49ERS_score = await this.sportsBook.SAN_FRANCISCO_49ERS_score();
+            SAN_FRANCISCO_49ERS_score.should.be.a.bignumber.that.equals(new BN('10', 10));
+          });
+
+          it('calling KANSAS_CITY_CHIEFS_score() should return 13', async function () {
+            let KANSAS_CITY_CHIEFS_score = await this.sportsBook.KANSAS_CITY_CHIEFS_score();
+            KANSAS_CITY_CHIEFS_score.should.be.a.bignumber.that.equals(new BN('13', 10));
+          });
+
           it('calling scores() should return \'{10,13} BN\'', async function () {
             let scores = await this.sportsBook.scores();
             let [SF_score, KC_score] = [scores['0'], scores['1']];
@@ -127,6 +137,8 @@ contract('SportsBook', function ([
 
         context('game ends with Kansas City beating San Francisco 32-28', function () {
           beforeEach(async function () {
+            await this.sportsBook.setScoreForSanFrancisco(28, { from: whitelistAdmin });
+            await this.sportsBook.setScoreForKansasCity(32, { from: whitelistAdmin });
             await this.sportsBook.reportGameEnded({ from: whitelistAdmin });
           });
 
@@ -192,73 +204,6 @@ contract('SportsBook', function ([
           });
         });
       })
-
-      context('game ends with Kansas City beating San Francisco 32-28', function () {
-        beforeEach(async function () {
-          await this.sportsBook.reportGameEnded({ from: whitelistAdmin });
-        });
-
-        describe('acknowledges the end of the game', function () {
-          it('calling gameEnded() should return \'true\'', async function () {
-            (await this.sportsBook.gameEnded()).should.be.true;
-          });
-        });
-
-        describe('reflects correct score for both teams', function () {
-          it('calling SAN_FRANCISCO_49ERS_score() should return 28', async function () {
-            let SAN_FRANCISCO_49ERS_score = await this.sportsBook.SAN_FRANCISCO_49ERS_score();
-            SAN_FRANCISCO_49ERS_score.should.be.a.bignumber.that.equals(new BN('28', 10));
-          });
-
-          it('calling KANSAS_CITY_CHIEFS_score() should return 32', async function () {
-            let KANSAS_CITY_CHIEFS_score = await this.sportsBook.KANSAS_CITY_CHIEFS_score();
-            KANSAS_CITY_CHIEFS_score.should.be.a.bignumber.that.equals(new BN('32', 10));
-          });
-        });
-
-        describe('acknowledges bettors\' wins and losses', function () {
-          it('calling myTeamWon({from:SF_Fan1}) should return \'false\'', async function () {
-            (await this.sportsBook.myTeamWon({ from: SF_Fan1 })).should.be.false;
-          });
-
-          it('calling myTeamWon({from:KC_Fan1}) should return \'true\'', async function () {
-            (await this.sportsBook.myTeamWon({ from: KC_Fan1 })).should.be.true;
-          });
-        });
-
-        context('pays out to the correct addresses', function () {
-          describe('Kansas City fan tries to claim his payout', function () {
-            let txReceipt
-            beforeEach(async function () {
-              txReceipt = await this.sportsBook.claimPayout({ from: KC_Fan1 })
-            });
-
-            it('calling claimPayout({from:KC_Fan2}) should emit an event called Withdrawn', async function () {
-              expectEvent.inLogs(txReceipt.logs, 'Withdrawn', {
-                payee: KC_Fan1,
-                // weiAmount: minBet,
-              });
-            });
-          });
-
-          it('reverts when a losing bettor tries to claim a payout', async function () {
-            await shouldFail.reverting(this.sportsBook.claimPayout({ from: SF_Fan1 }));
-          });
-
-          it('reverts when a non-bettor tries to claim a payout', async function () {
-            await shouldFail.reverting(this.sportsBook.claimPayout({ from: whitelistAdmin }));
-          });
-        });
-
-        describe('payouts are fairly distributed', function () {
-          it('all winners get payouts', async function () {
-            await this.sportsBook.claimPayout({ from: KC_Fan2 });
-            await this.sportsBook.claimPayout({ from: KC_Fan3 });
-            await this.sportsBook.claimPayout({ from: KC_Fan4 });
-            await this.sportsBook.claimPayout({ from: KC_Fan5 });
-          });
-        });
-      });
     });
   });
 });
