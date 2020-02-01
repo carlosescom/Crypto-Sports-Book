@@ -104,7 +104,7 @@ export default ({ accounts }) => (
         contract="SportsBook"
         method="bet"
         labels={["Team"]}
-        sendArgs={{value:30000000000000000}}
+        sendArgs={{value: 30000000000000000, gas: 3000000}}
       />
       <p>
         <strong>Was your bet acknowledged?: </strong>
