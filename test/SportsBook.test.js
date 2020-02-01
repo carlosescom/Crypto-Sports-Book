@@ -30,14 +30,15 @@ contract('SportsBook', function ([
 
   context('initially', function () {
     it('doesn\'t pre-initialize fields', async function () {
-      (await this.sportsBook.profit()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.totalPool()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.SAN_FRANCISCO_49ERS_pool()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.SAN_FRANCISCO_49ERS_bettors()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.SAN_FRANCISCO_49ERS_score()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.profit_for_SAN_FRANCISCO_49ERS_bettors()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.KANSAS_CITY_CHIEFS_pool()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.KANSAS_CITY_CHIEFS_bettors()).should.be.a.bignumber.that.is.zero;
       (await this.sportsBook.KANSAS_CITY_CHIEFS_score()).should.be.a.bignumber.that.is.zero;
+      (await this.sportsBook.profit_for_KANSAS_CITY_CHIEFS_bettors()).should.be.a.bignumber.that.is.zero;
     });
 
     describe('allows people to place bets', function () {
