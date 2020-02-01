@@ -46,7 +46,8 @@ contract SportsBook is Escrow, WhitelistAdminRole {
     uint256 public minFee = 10 finney;
     uint256 public minBet = 30 finney;
     uint256 public precision = 1 ether;
-    uint256 public profit;
+    uint256 public profit_for_SAN_FRANCISCO_49ERS_bettors;
+    uint256 public profit_for_KANSAS_CITY_CHIEFS_bettors;
     uint256 public totalPool;
     uint256 public SAN_FRANCISCO_49ERS_pool;
     uint256 public KANSAS_CITY_CHIEFS_pool;
