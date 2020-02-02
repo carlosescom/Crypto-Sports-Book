@@ -78,7 +78,15 @@ Within the Truffle console copy and paste all of the following commands.
 let SB = await SportsBook.at('0x69b9DC056FFb052a2fDF7C3112b484Bd27e75eaE') // if using Ropsten
 let A = await web3.eth.getAccounts()
 SB.contract.methods.bet(1).send({from:A[0],value:30000000000000000})
-SB.contract.methods.bet(2).send({from:A[1],value:50000000000000000})
+SB.contract.methods.bet(1).send({from:A[1],value:60000000000000000})
+SB.contract.methods.bet(1).send({from:A[2],value:90000000000000000})
+SB.contract.methods.bet(1).send({from:A[3],value:90000000000000000})
+SB.contract.methods.bet(2).send({from:A[4],value:30000000000000000})
+SB.contract.methods.bet(2).send({from:A[5],value:30000000000000000})
+SB.contract.methods.bet(2).send({from:A[6],value:60000000000000000})
+SB.contract.methods.bet(2).send({from:A[7],value:60000000000000000})
+SB.contract.methods.bet(2).send({from:A[8],value:90000000000000000})
+SB.contract.methods.bet(2).send({from:A[9],value:90000000000000000})
 ```
 
 After that, the admin account (A\[0\]) will report the game started will be reporting the scores of the game.
@@ -95,4 +103,8 @@ Then, the admin will report the end of the game and the scores will effectively 
 SB.contract.methods.reportGameEnded().send({from:A[0]})
 ```
 
-Now, users can claim bets.
+Now, users can claim their payoffs!
+
+```JavaScript
+SB.contract.methods.claimPayoff().send({from:A[0]})
+```
