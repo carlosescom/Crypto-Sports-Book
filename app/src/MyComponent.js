@@ -48,7 +48,7 @@ export default ({ accounts }) => (
             </td>
           </tr>
           <tr style={{
-            fontSize: '0.5em',
+            fontSize: '0.4em',
           }}>
             <td>
               <strong>SF pool: </strong>
@@ -57,18 +57,29 @@ export default ({ accounts }) => (
             <td>
               <strong>KC pool: </strong>
               <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_pool" /> wei
-          </td>
+            </td>
           </tr>
           <tr style={{
-            fontSize: '0.5em',
+            fontSize: '0.4em',
           }}>
             <td>
-              <strong>SF pool: </strong>
-              <ContractData contract="SportsBook" method="SAN_FRANCISCO_49ERS_bettors" /> wei
+              <strong>SF bettors: </strong>
+              <ContractData contract="SportsBook" method="SAN_FRANCISCO_49ERS_bettors" /> bettors
           </td>
             <td>
-              <strong>KC pool: </strong>
-              <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_bettors" /> wei
+              <strong>KC bettors: </strong>
+              <ContractData contract="SportsBook" method="KANSAS_CITY_CHIEFS_bettors" /> bettors
+          </td>
+          </tr><tr style={{
+            fontSize: '0.4em',
+          }}>
+            <td>
+              <strong>profit for SF fans: </strong>
+              <ContractData contract="SportsBook" method="profit_for_SAN_FRANCISCO_49ERS_bettors" /> wei
+          </td>
+            <td>
+              <strong>profit for KC fans: </strong>
+              <ContractData contract="SportsBook" method="profit_for_KANSAS_CITY_CHIEFS_bettors" /> wei
           </td>
           </tr>
         </tbody>
@@ -83,8 +94,6 @@ export default ({ accounts }) => (
         <ContractData contract="SportsBook" method="minBet" /> wei</p>
       <p><strong>precision: </strong>
         <ContractData contract="SportsBook" method="precision" /> wei</p>
-      <p><strong>profit: </strong>
-        <ContractData contract="SportsBook" method="profit" /> wei</p>
       <p><strong>totalPool: </strong>
         <ContractData contract="SportsBook" method="totalPool" /> wei</p>
       <p><strong>Has the game started?: </strong>
@@ -143,14 +152,14 @@ export default ({ accounts }) => (
       <p><strong>Score for San Francisco</strong></p>
       <ContractForm
         contract="SportsBook"
-        method="reportScoreForSanFrancisco"
+        method="setScoreForSanFrancisco"
         labels={["Score for SF"]}
         />
       <br/>
       <p><strong>Score for Kansas City</strong></p>
       <ContractForm
         contract="SportsBook"
-        method="reportScoreForKansasCity"
+        method="setScoreForKansasCity"
         labels={["Score for KC"]}
       />
       <br />
