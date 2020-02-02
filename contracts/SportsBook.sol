@@ -130,12 +130,15 @@ contract SportsBook is WhitelistAdminRole, ReentrancyGuard {
         uint256 betAmount = minFee < fee
             ? msg.value.sub(fee)
             : msg.value.sub(minFee);
-        chosenTeam == Team.SAN_FRANCISCO_49ERS
-            ? SAN_FRANCISCO_49ERS_pool = SAN_FRANCISCO_49ERS_pool.add(betAmount)
-            : KANSAS_CITY_CHIEFS_pool = KANSAS_CITY_CHIEFS_pool.add(betAmount);
         totalPool = totalPool.add(betAmount);
-        SAN_FRANCISCO_49ERS_bettors++;
-        KANSAS_CITY_CHIEFS_bettors++;
+        if(chosenTeam == Team.SAN_FRANCISCO_49ERS) {
+            SAN_FRANCISCO_49ERS_pool = SAN_FRANCISCO_49ERS_pool.add(betAmount);
+            SAN_FRANCISCO_49ERS_bettors++;
+        }
+        else {
+            KANSAS_CITY_CHIEFS_pool = KANSAS_CITY_CHIEFS_pool.add(betAmount);
+            KANSAS_CITY_CHIEFS_bettors++;
+        }
         deposit(msg.sender,betAmount);
     }
 }
