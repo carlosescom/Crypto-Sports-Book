@@ -123,12 +123,11 @@ export default ({ accounts }) => (
         <strong>How much have you bet?: </strong>
         <ContractData contract="SportsBook" method="howMuchHaveIBet" />
       </p>
-      <p>
+      <span>
         You're betting from:
-        <span>
-          <AccountData accountIndex={0} units="ether" precision={6} />
-        </span>
-      </p>
+      </span>
+      <AccountData accountIndex={0} units="ether" precision={6} />
+
     </div>
 
     <div className="section">
