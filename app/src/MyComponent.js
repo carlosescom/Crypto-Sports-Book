@@ -120,7 +120,14 @@ export default ({ accounts }) => (
         <ContractData contract="SportsBook" method="myBetWasPlaced" />
       </p>
       <p>
-        You're betting from: <AccountData accountIndex={0} units="ether" precision={6} />
+        <strong>How much have you bet?: </strong>
+        <ContractData contract="SportsBook" method="howMuchHaveIBet" />
+      </p>
+      <p>
+        You're betting from:
+        <span>
+          <AccountData accountIndex={0} units="ether" precision={6} />
+        </span>
       </p>
     </div>
 
