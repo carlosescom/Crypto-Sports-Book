@@ -54,8 +54,11 @@ The UI is configured to bet only a fixed amount of `30 finney`, which is the min
 
 To submit a bet, simply follow these steps:
 1. Scroll down to the section with the title "Submit your bets!".
-2. Chose your team by entring either `1` or `2` in the input field.
-3. Submit team scores and .
+2. Chose your team by entring either `1` or `2` in the input field, (1: San Francisco, 2: Kansas City).
+3. Change account in Metamask.
+4. Bet for the opposite team with that new account.
+5. Submit team scores and watch the counters reload and will reflect the scores you submitted.
+6. .
 
 Alternatively you can run the following commands on a Truffle console pointing to a Ganache instance listening on port 8545.
 
