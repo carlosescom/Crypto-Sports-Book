@@ -98,6 +98,18 @@ contract('SportsBook', function ([
       });
     });
 
+    describe('correctly counts bettors', function () {
+      it('calling SAN_FRANCISCO_49ERS_bettors() should return 4', async function () {
+        let bet = await this.sportsBook.depositsOf(SF_Fan1);
+        bet.should.be.a.bignumber.that.equals(4);
+      });
+
+      it('calling KANSAS_CITY_bettors() should return 5', async function () {
+        let bet = await this.sportsBook.depositsOf(KC_Fan1);
+        bet.should.be.a.bignumber.that.equals(5);
+      });
+    });
+
     context('game starts', function () {
       beforeEach(async function () {
         await this.sportsBook.reportGameStarted({ from: whitelistAdmin });
