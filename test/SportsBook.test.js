@@ -100,13 +100,13 @@ contract('SportsBook', function ([
 
     describe('correctly counts bettors', function () {
       it('calling SAN_FRANCISCO_49ERS_bettors() should return 4', async function () {
-        let bet = await this.sportsBook.depositsOf(SF_Fan1);
-        bet.should.be.a.bignumber.that.equals(4);
+        let bettors = await this.sportsBook.depositsOf(SF_Fan1);
+        bettors.should.be.a.bignumber.that.equals(new BN('4',10));
       });
 
       it('calling KANSAS_CITY_bettors() should return 5', async function () {
-        let bet = await this.sportsBook.depositsOf(KC_Fan1);
-        bet.should.be.a.bignumber.that.equals(5);
+        let bettors = await this.sportsBook.depositsOf(KC_Fan1);
+        bettors.should.be.a.bignumber.that.equals(new BN('5', 10));
       });
     });
 
