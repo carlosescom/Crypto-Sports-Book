@@ -30,6 +30,7 @@
     "dotenv": "^8.2.0",
     "ethjs-abi": "^0.2.1",
     "openzeppelin-solidity": "^2.1.1",
+    "truffle": "^5.1.11",
     "web3": "^1.2.5"
   }
 }
