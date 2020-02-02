@@ -105,7 +105,7 @@ contract('SportsBook', function ([
       });
 
       it('calling KANSAS_CITY_CHIEFS_bettors() should return 5', async function () {
-        let bettors = await this.sportsBook.KANSAS_CITY_CHIEFS_bettors(KC_Fan1);
+        let bettors = await this.sportsBook.KANSAS_CITY_CHIEFS_bettors();
         bettors.should.be.a.bignumber.that.equals(new BN('5', 10));
       });
     });
